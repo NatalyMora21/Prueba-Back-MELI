@@ -1,11 +1,9 @@
 package Meli.Back.services;
 
-import Meli.Back.models.Author;
-import Meli.Back.models.Item;
-import Meli.Back.models.Price;
-import Meli.Back.models.SearchResult;
+import Meli.Back.models.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ServiceFilter {
+@Service
+public class FilterService {
 
     public SearchResult listItems(String query) throws IOException {
 
@@ -39,6 +38,34 @@ public class ServiceFilter {
                 .items(presentedList)
                 .build();
     }
+
+    public DetailResult detailItem(String id) throws IOException {
+
+        System.out.println("-----------");
+        var response = getRequest("https://api.mercadolibre.com/items/" + id);
+        var description = getRequest("https://api.mercadolibre.com/items/" + id + "/description");
+
+        System.out.println(response);
+        System.out.println(description);
+
+        DetailItem item = DetailItem.builder()
+                .id(getJsonItem("id", response))
+                .title(getJsonItem("title", response))
+                .price(getPrice(response))
+                .picture(getPicture(response))
+                .condition(getJsonItem("condition", response))
+                .free_shipping(Boolean.parseBoolean(response.get("shipping").get("free_shipping").toString()))
+                .sold_quantity(response.get("sold_quantity").asInt())
+                .description(getJsonItem("plain_text", description))
+                .build();
+
+
+        return DetailResult.builder()
+                .author(new Author())
+                .item(item)
+                .build();
+    }
+
 
 
     private String getJsonItem(String attribute, JsonNode results) {
