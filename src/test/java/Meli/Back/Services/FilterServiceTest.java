@@ -4,6 +4,7 @@ import Meli.Back.models.Author;
 import Meli.Back.models.DetailItem;
 import Meli.Back.models.DetailResult;
 import Meli.Back.models.SearchResult;
+
 import Meli.Back.services.FilterService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ContextConfiguration(classes = {FilterService.class})
 class FilterServiceTest {
+
     @Autowired
     private FilterService underTest;
 
@@ -66,7 +68,5 @@ class FilterServiceTest {
         assertThrows(FileNotFoundException.class, () -> underTest.detailItem("12344"));
 
     }
-
-
 
 }
