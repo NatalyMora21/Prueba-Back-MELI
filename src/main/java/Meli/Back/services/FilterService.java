@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class service {
+public class ServiceFilter {
 
     public SearchResult listItems(String query) throws IOException {
 
@@ -74,5 +74,5 @@ public class service {
         JsonNode jsonNode = mapper.readTree(inputStream);
         return jsonNode;
     }
-
 }
+
