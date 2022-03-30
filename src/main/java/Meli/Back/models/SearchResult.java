@@ -2,7 +2,6 @@ package Meli.Back.models;
 import java.util.List;
 import lombok.*;
 
-
 @EqualsAndHashCode
 @Getter
 @Setter
