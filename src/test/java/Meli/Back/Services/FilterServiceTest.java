@@ -27,12 +27,10 @@ class FilterServiceTest {
 
     @Autowired
     private FilterService underTest;
-
     @BeforeEach
     void setUp(){
         underTest = new FilterService();
     }
-
 
     @Test
     void listItems() throws IOException {
@@ -43,23 +41,20 @@ class FilterServiceTest {
                 .author(author)
                 .build();
 
-        var result = underTest.listItems("test");
+        var result = underTest.listItems("tv");
 
         assertTrue(result.getClass() == searchResultLocal.getClass());
         assertEquals(result.getAuthor(), searchResultLocal.getAuthor());
-
     }
 
     @Test
     void detailItem() throws IOException {
-
-
         DetailResult detailResult = DetailResult.builder()
                 .author( new Author())
                 .item(DetailItem.builder().build())
                 .build();
 
-        var listOfItems = underTest.listItems("test");
+        var listOfItems = underTest.listItems("tv");
         var result = underTest.detailItem(listOfItems.getItems().get(0).getId());
 
 

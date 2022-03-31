@@ -42,10 +42,10 @@ class ControllerTest {
                 .author(author)
                 .build();
 
-        when(service.listItems("test")).thenReturn(searchResultLocal);
+        when(service.listItems("tv")).thenReturn(searchResultLocal);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/items/test")
+                        .get("/api/items/tv")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$..author.name", hasItem("Nataly")))
